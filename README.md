@@ -33,7 +33,7 @@ https://github.com/yuimoi/tg_faka/assets/119736684/4b570311-5f96-4111-a3be-aa58c
 #### config.json
     "tg_bot_token": 机器人的token，前往BotFather获取，并设置为群组的管理员
     "admin_tg_id": 管理员Telegram Chat ID,可以在@userinfobot获取
-    "order_duration_minutes": 订单持续时间
+    "order_duration_minutes": 订单持续时间(分钟)，不加双引号
     "host": 绑定的域名，用于易支付发起订单时拼接回调地址
     "proxy": 代理，一般不用开
 
