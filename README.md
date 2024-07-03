@@ -10,6 +10,10 @@
 ### DEMO
 
 
+https://github.com/yuimoi/tg_faka/assets/119736684/4b570311-5f96-4111-a3be-aa58c402df26
+
+
+
 ### 使用说明
 自行编译或者下载右侧Release编译好的运行文件（如果下载运行文件，需要执行命令给运行权限`chmod +x tg_faka_linux`），直接运行即可，运行文件的同一目录下要附带.env文件夹并在文件夹中写好配置文件。程序成功运行后，配置nginx，反代到运行端口即可。
 
