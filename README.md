@@ -77,7 +77,7 @@
 
 ### 清空商品
 `/clear_products`
-### 清空库存
+### 清空库存(如有库存，则会以文件发送给管理员)
 `/clear_product_items`
 
 
