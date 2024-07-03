@@ -1,7 +1,7 @@
 package db
 
 import (
-	"gorm.io/driver/sqlite"
+	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
 	"path/filepath"
 	"tg_go_faka/internal/models"

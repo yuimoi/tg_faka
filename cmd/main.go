@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"tg_go_faka/internal/router"
 	"tg_go_faka/internal/schedule"
 	"tg_go_faka/internal/utils/config"
@@ -11,7 +12,7 @@ import (
 )
 
 func main() {
-	//gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.ReleaseMode)
 
 	port := flag.String("port", "8087", "http运行端口")
 	flag.Parse()

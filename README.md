@@ -45,8 +45,7 @@
 ## 管理员指令
 
 ### 添加商品
-```
-/add_products
+<pre><code>/add_products
 商品名1 介绍1 金额1
 商品名2 介绍2 金额2
 商品名3 介绍3 金额3
@@ -54,7 +53,7 @@
 示例:
 /add_products
 宝宝金水 我爱洗澡 8848
-```
+</code></pre>
 
 
 ### 查看商品id
@@ -62,8 +61,7 @@
 
 
 ### 添加库存
-```
-/add_product_items /商品id/
+<pre><code>/add_product_items /商品id/
 库存1发货内容
 库存2发货内容
 库存3发货内容
@@ -73,7 +71,7 @@
 库存1发货内容
 库存2发货内容
 库存3发货内容
-```
+</code></pre>
 
 ### 清空商品
 `/clear_products`
