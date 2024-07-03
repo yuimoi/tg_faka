@@ -54,8 +54,11 @@ func SendMsg(tgID int64, msgText string, opts ...interface{}) error {
 			msg.ReplyMarkup = keyboard
 		}
 	}
-
 	_, err := Bot.Send(msg)
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	if err != nil {
 		return err
 	}
@@ -120,8 +123,4 @@ type PaginationData struct {
 type PaginationItemsData struct {
 	Name         string
 	CallbackData string
-}
-
-func PaginationMarkup() {
-
 }

@@ -1,6 +1,7 @@
 package models
 
 import (
+	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 	"tg_go_faka/internal/utils/functions"
@@ -9,7 +10,7 @@ import (
 
 // 使用指针可以方便的置空，使用原则：必须要判断是否为空的情况
 type Product struct {
-	ID         int64                   `gorm:"primaryKey;not null" json:"id"` // sqlite3库有个非常奇怪的逻辑，自增是primaryKey的默认自带，但是一旦附加了autoIncrease标签就会导致自增设置失效
+	ID         uuid.UUID               `gorm:"primaryKey;not null" json:"id"`
 	Status     _type.ProductStatusType `gorm:"default:1;not null" json:"status"`
 	CreateTime int64                   `gorm:"index;autoCreateTime;not null" json:"create_time"`
 
@@ -33,6 +34,8 @@ func (o *Product) ToDict() map[string]interface{} {
 }
 
 func (o *Product) BeforeCreate(tx *gorm.DB) (err error) {
-
+	if o.ID == uuid.Nil {
+		o.ID = uuid.New()
+	}
 	return
 }

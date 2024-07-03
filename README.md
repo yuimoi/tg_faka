@@ -73,7 +73,7 @@
 
 示例:
 ```
-/add_product_items /123/
+/add_product_items /7db6bc44-7265-4060-91fb-634fbffe11f5/
 宝宝金水亲子装
 宝宝金水豪华礼包数字版
 ```

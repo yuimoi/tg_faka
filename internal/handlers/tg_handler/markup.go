@@ -15,7 +15,7 @@ func GetProductsPaginationMarkup(products []*models.Product, pagination _type.Pa
 	for _, product := range products {
 		buttonText := fmt.Sprintf("%s 价格:%s¥ 库存:%d", product.Name, product.Price, product.InStockCount)
 
-		row := []tgbotapi.InlineKeyboardButton{tgbotapi.NewInlineKeyboardButtonData(buttonText, fmt.Sprintf("%s%d", itemCallbackPrefix, product.ID))}
+		row := []tgbotapi.InlineKeyboardButton{tgbotapi.NewInlineKeyboardButtonData(buttonText, fmt.Sprintf("%s%s", itemCallbackPrefix, product.ID))}
 		rows = append(rows, row)
 	}
 

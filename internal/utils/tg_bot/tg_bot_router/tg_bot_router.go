@@ -99,6 +99,9 @@ func handleUpdate(r *TgRouter, bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	}
 
 	if update.CallbackQuery != nil {
+		// 及时响应，不然一直转圈圈
+		_ = tg_bot.SendCallback(update.CallbackQuery.ID, "")
+
 		callbackData := update.CallbackQuery.Data
 		for _, route := range r.callbackHandlers {
 			if matches := route.pattern.FindStringSubmatch(callbackData); matches != nil {

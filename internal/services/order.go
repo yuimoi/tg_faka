@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -87,7 +88,7 @@ func EpaySign(mapInput map[string]string, epayKey string) string {
 	return md5String
 }
 
-func GetOrderByOrderID(orderID int64) (*models.Order, error) {
+func GetOrderByOrderID(orderID uuid.UUID) (*models.Order, error) {
 	var order *models.Order
 	if result := db.DB.Model(models.Order{}).Where("id = ?", orderID).Find(&order); result.RowsAffected == 0 {
 		return nil, errors.New("没有找到订单")

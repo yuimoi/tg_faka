@@ -40,7 +40,7 @@ func ProductConfirmCallback(handlerData tg_bot_router.HandlerDataStruct) {
 	messageID := handlerData.Update.CallbackQuery.Message.MessageID
 
 	productIDString := handlerData.Params["product_id"]
-	productID, err := strconv.ParseInt(productIDString, 10, 64)
+	productID, err := functions.ParseUUID(productIDString)
 	if err != nil {
 		_ = tg_bot.SendMsg(chatID, "id格式错误")
 		return
@@ -55,7 +55,7 @@ func ProductConfirmCallback(handlerData tg_bot_router.HandlerDataStruct) {
 	productItemsInStockCount, _ := services.GetProductItemValidCounts(product.ID)
 
 	productConfirmRow := []tgbotapi.InlineKeyboardButton{
-		tgbotapi.NewInlineKeyboardButtonData("确认支付", fmt.Sprintf("%s%d", "pay_product_", product.ID)),
+		tgbotapi.NewInlineKeyboardButtonData("确认支付", fmt.Sprintf("%s%s", "pay_product_", product.ID)),
 		tgbotapi.NewInlineKeyboardButtonData("取消", "products_1"),
 	}
 
@@ -71,7 +71,7 @@ func PayProductCallback(handlerData tg_bot_router.HandlerDataStruct) {
 	messageID := handlerData.Update.CallbackQuery.Message.MessageID
 
 	productIDString := handlerData.Params["product_id"]
-	productID, err := strconv.ParseInt(productIDString, 10, 64)
+	productID, err := functions.ParseUUID(productIDString)
 	if err != nil {
 		_ = tg_bot.SendMsg(chatID, "id格式错误")
 		return
@@ -98,7 +98,7 @@ func PayProductCallback(handlerData tg_bot_router.HandlerDataStruct) {
 
 	// 构建订单url
 	epayConfig := *config.EpayConfig
-	payUrl := services.EpayUrl(fmt.Sprintf("%d", newOrder.ID), newOrder.Price, product.Name, epayConfig)
+	payUrl := services.EpayUrl(fmt.Sprintf("%s", newOrder.ID), newOrder.Price, product.Name, epayConfig)
 
 	sendText := fmt.Sprintf("<a href=\"%s\">点击支付</a>\n请在过期前支付\n过期时间: %s", payUrl, functions.TimestampToDatetime(newOrder.EndTime))
 
@@ -124,7 +124,6 @@ func ProductsCommand(handlerData tg_bot_router.HandlerDataStruct) {
 	replyMarkup := GetProductsPaginationMarkup(products, pagination)
 
 	_ = tg_bot.SendMsg(tgID, "请选择商品", replyMarkup)
-
 }
 
 func ProductsCallback(handlerData tg_bot_router.HandlerDataStruct) {
@@ -235,7 +234,7 @@ func AddProductItems(handlerData tg_bot_router.HandlerDataStruct) {
 		return
 	}
 
-	productID, err := strconv.ParseInt(productIDString, 10, 64)
+	productID, err := functions.ParseUUID(productIDString)
 	if err != nil {
 		_ = tg_bot.SendMsg(tgID, "id格式错误")
 		return
@@ -327,6 +326,6 @@ func ViewProducts(handlerData tg_bot_router.HandlerDataStruct) {
 		msgText = msgText + fmt.Sprintf("%v\n", functions.StructToMap(product))
 	}
 
-	_ = tg_bot.SendMsg(chatID, msgText)
+	err = tg_bot.SendMsg(chatID, msgText)
 
 }

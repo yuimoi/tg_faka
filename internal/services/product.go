@@ -2,6 +2,7 @@ package services
 
 import (
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/xuri/excelize/v2"
 	"strconv"
 	"tg_go_faka/internal/models"
@@ -10,7 +11,7 @@ import (
 	_type "tg_go_faka/internal/utils/type"
 )
 
-func GetValidProductByID(id int64) (*models.Product, error) {
+func GetValidProductByID(id uuid.UUID) (*models.Product, error) {
 	var product *models.Product
 	result := db.DB.Model(models.Product{}).Where("id=? and status=?", id, _type.ProductStatusValid).Find(&product)
 	if result.Error != nil {
@@ -18,7 +19,7 @@ func GetValidProductByID(id int64) (*models.Product, error) {
 	}
 	return product, nil
 }
-func GetProductItemByID(productItemID int64) (*models.ProductItem, error) {
+func GetProductItemByID(productItemID uuid.UUID) (*models.ProductItem, error) {
 	var productItem *models.ProductItem
 	result := db.DB.Model(models.ProductItem{}).Where("id=?", productItemID).Find(&productItem)
 	if result.Error != nil {
@@ -68,7 +69,7 @@ func GetProductsByPage(page int) ([]*models.Product, _type.PaginationQueryDataSt
 	return items, pagination, nil
 }
 
-func GetProductItemValidCounts(productID int64) (int64, error) {
+func GetProductItemValidCounts(productID uuid.UUID) (int64, error) {
 	var productItemsCount int64
 	result := db.DB.Model(&models.ProductItem{}).Where("product_id = ? and status=?", productID, _type.ProductItemStatusValid).Count(&productItemsCount)
 	if result.Error != nil {
