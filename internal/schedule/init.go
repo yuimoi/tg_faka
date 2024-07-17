@@ -11,6 +11,6 @@ func startClearPendingOrderSchedule() {
 	for {
 		clearPendingOrderScheduleFunc()
 
-		time.Sleep(time.Hour * 24)
+		time.Sleep(time.Minute * 10)
 	}
 }
