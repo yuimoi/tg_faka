@@ -13,6 +13,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # release changes require contents write
     steps:
     - uses: actions/checkout@v4
 
@@ -23,14 +25,22 @@ jobs:
         
     - name: Build
       run: |
-        mkdir -p output
-        go build -o output/main cmd/main.go
+        go build -o tg_faka_linux cmd/main.go
 
-    - name: List output directory contents
-      run: ls -al output/
+    - name: List root directory contents
+      run: ls -al /
 
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-artifacts
-        path: output/
+    - name: Install GitHub CLI
+      run: sudo apt-get install -y gh
+
+    - name: Authenticate GitHub CLI
+      run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Compress build output and .env folder
+      run: |
+        zip -r tg_faka_linux.zip tg_faka_linux .env
+
+    - name: Upload Release Asset
+      run: |
+        gh release upload release tg_faka_linux.zip --clobber
+     
